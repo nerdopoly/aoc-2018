@@ -1,14 +1,18 @@
-import Data.IntSet
+import Data.IntSet (IntSet, member, insert, empty)
 import System.IO
 
 readInt :: String -> Int
 readInt ('+':xs) = read xs
 readInt xs = read xs
 
-findFreq :: [Int] -> IntSet -> Int -> Int
-findFreq (int:ints) sums s =
-    if member s sums then s else findFreq ints (insert s sums) (s + int)
+findFreq :: [Int] -> Int
+findFreq = go empty 0 . cycle
+    where
+        go :: IntSet -> Int -> [Int] -> Int
+        go sums s (int:ints)
+            | s `member` sums = s
+            | otherwise       = go (insert s sums) (s + int) ints
 
 main = do
     input <- readFile "input.txt"
-    print $ findFreq (cycle $ Prelude.map readInt (lines input)) empty 0
+    print . findFreq $ map readInt (lines input)

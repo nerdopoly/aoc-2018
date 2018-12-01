@@ -6,4 +6,4 @@ readInt xs = read xs
 
 main = do
     input <- readFile "input.txt"
-    print $ sum (map readInt (lines input))
+    print . sum $ map readInt (lines input)
