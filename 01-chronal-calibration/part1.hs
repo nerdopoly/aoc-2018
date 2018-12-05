@@ -1,8 +1,4 @@
-import System.IO
-
-readInt :: String -> Int
-readInt ('+':xs) = read xs
-readInt xs = read xs
+import Common
 
 main = do
     input <- readFile "input.txt"
