@@ -1,4 +1,3 @@
-import Debug.Trace
 import Data.Tree
 import Common
 
