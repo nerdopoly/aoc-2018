@@ -1,6 +1,8 @@
 import Data.IntSet (IntSet, member, insert, empty)
 
-import Common
+readInt :: String -> Int
+readInt ('+':xs) = read xs
+readInt xs = read xs
 
 findFreq :: [Int] -> Int
 findFreq = go empty 0 . cycle
@@ -11,5 +13,6 @@ findFreq = go empty 0 . cycle
             | otherwise       = go (insert s sums) (s + int) ints
 
 main = do
-    input <- readFile "input.txt"
-    print . findFreq $ map readInt (lines input)
+    ints <- fmap readInt . lines <$> readFile "input/01.txt"
+    putStrLn . ("Part 1: "++) . show . sum $ ints
+    putStrLn . ("Part 2: "++) . show . findFreq $ ints

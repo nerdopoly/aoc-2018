@@ -1,5 +1,4 @@
-module Common (reduce) where
-
+import Data.List
 import Data.Char
 
 groupPairs :: String -> [String]
@@ -15,3 +14,14 @@ reduce s
     | otherwise     = s
     where pairs = groupPairs s
           reducible = any (>1) . map length $ pairs
+
+removePolymer :: String -> Char -> String
+removePolymer s p = filter (not . (`elem` [toUpper p,toLower p])) s
+
+reducedLength :: String -> Int
+reducedLength = length . reduce
+
+main = do
+    input <- dropWhileEnd isSpace <$> readFile "input/05.txt"
+    putStrLn . ("Part 1: "++) . show . reducedLength $ input
+    putStrLn . ("Part 2: "++) . show . minimum . map reducedLength $ removePolymer input <$> ['a'..'z']
